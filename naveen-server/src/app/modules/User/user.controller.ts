@@ -8,13 +8,25 @@ import { userService } from './user.service';
 const createAdmin: RequestHandler = catchAsync(async (req, res) => {
   const result = await userService.createAdminService(req.body);
   sendResponse(res, {
-    statusCode: httpStatus.OK,
+    statusCode: httpStatus.CREATED,
     success: true,
     message: 'Admin created successfully!',
     data: result,
   });
 });
 
+//** create manager controller */
+const createManager: RequestHandler = catchAsync(async (req, res) => {
+  const result = await userService.createManagerService(req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: 'Manager created successfully!',
+    data: result,
+  });
+});
+
 export const userController = {
   createAdmin,
+  createManager,
 };
