@@ -1,0 +1,19 @@
+{
+  "name": "naveen-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsnd --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node ./dist/server.js",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "5.11.0",
+    "@types/node": "^20.12.2",
+    "prisma": "^5.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
+  }
+}

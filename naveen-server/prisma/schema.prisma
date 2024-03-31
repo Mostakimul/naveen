@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  ADMIN
+  STORE_MANAGER
+  WAREHOUSE_MANAGER
+  RESTAURANT_MANAGER
+}
+
+model User {
+  userId      String        @id @unique @default(uuid())
+  userCode    String        @unique
+  password    String
+  role        UserRole
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  store       Store?
+  sales       Sales[]
+  itemRequest ItemRequest[]
+
+  @@map("users")
+}
+
+enum StoreType {
+  DAZZLE
+  DAZZLE_PREMIUM
+  DAZZLE_OUTLET
+  RESTAURANT
+  WAREHOUSE
+}
+
+model Store {
+  storeId   String    @id @unique @default(uuid())
+  storeName String    @unique
+  storeType StoreType
+  userId    String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user        User          @relation(fields: [userId], references: [userId])
+  sales       Sales[]
+  itemRequest ItemRequest[]
+
+  @@map("stores")
+}
+
+model Sales {
+  salesId   String   @id @unique @default(uuid())
+  amount    Float
+  date      DateTime
+  storeId   String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [userId])
+  store Store @relation(fields: [storeId], references: [storeId])
+
+  @@map("sales")
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  IN_TRANSIT
+  RECEIEVED
+  REJECTED
+}
+
+model ItemRequest {
+  requestId        String        @id @unique @default(uuid())
+  itemsName        String[]
+  itemsDescription String?
+  itemsCost        Float?
+  invoiceImage     String?
+  remarks          String?
+  isApproved       Boolean
+  requestStatus    RequestStatus
+  storeId          String
+  userId           String
+
+  store Store @relation(fields: [storeId], references: [storeId])
+  user  User  @relation(fields: [userId], references: [userId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("itemRequests")
+}
