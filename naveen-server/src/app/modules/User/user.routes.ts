@@ -1,12 +1,14 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
+import { userController } from './user.controller';
+import { userValidation } from './user.validation';
 
 const router = express.Router();
 
 router.post(
   '/create-admin',
-  (req: Request, res: Response, next: NextFunction) => {
-    res.send('Create-admin router.....');
-  },
+  validateRequest(userValidation.createAdmin),
+  userController.createAdmin,
 );
 
 export const userRoutes = router;
