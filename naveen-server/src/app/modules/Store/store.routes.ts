@@ -11,4 +11,6 @@ router.post(
   storeController.createStore,
 );
 
+router.get('/', storeController.getAllStores);
+
 export const storeRoutes = router;
