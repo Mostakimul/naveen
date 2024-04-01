@@ -6,6 +6,7 @@ import { jwtHelper } from '../../../helpers/jwtHelper';
 import prisma from '../../../shared/prisma';
 import ApiError from '../../errors/ApiError';
 
+// * login service
 const loginService = async (payload: {
   userCode: string;
   password: string;
@@ -50,6 +51,34 @@ const loginService = async (payload: {
   };
 };
 
+// * refresh service
+const refreshTokenService = async (token: string) => {
+  const decodedData = jwtHelper.verifyToken(
+    token,
+    config.jwt_refresh_secret_key as Secret,
+  );
+
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      userCode: decodedData?.userCode,
+    },
+  });
+
+  const accessToken = jwtHelper.generateToken(
+    {
+      userCode: userData.userCode,
+      role: userData.role,
+    },
+    config.jwt_secret_key as Secret,
+    config.jwt_expire_in as string,
+  );
+
+  return {
+    accessToken,
+  };
+};
+
 export const authService = {
   loginService,
+  refreshTokenService,
 };

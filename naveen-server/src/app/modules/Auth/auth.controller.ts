@@ -5,6 +5,7 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { authService } from './auth.service';
 
+// * login controller
 const loginUser: RequestHandler = catchAsync(async (req, res) => {
   const result = await authService.loginService(req.body);
   const { refreshToken, accessToken } = result;
@@ -25,6 +26,20 @@ const loginUser: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+// * refresh controller
+const refreshToken: RequestHandler = catchAsync(async (req, res) => {
+  const { refreshToken } = req.cookies;
+  const result = await authService.refreshTokenService(refreshToken);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Access token generated successfully!',
+    data: result,
+  });
+});
+
 export const authController = {
   loginUser,
+  refreshToken,
 };
