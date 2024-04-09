@@ -11,4 +11,6 @@ router.post(
   salesController.createSales,
 );
 
+router.get('/', auth(UserRole.ADMIN), salesController.getAllSales);
+
 export const salesRoutes = router;

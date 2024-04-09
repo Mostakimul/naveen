@@ -1,6 +1,9 @@
-import { Sales } from '@prisma/client';
+import { Prisma, Sales } from '@prisma/client';
 import { JwtPayload } from 'jsonwebtoken';
+import { paginationHelper } from '../../../helpers/paginationHelper';
 import prisma from '../../../shared/prisma';
+import { IPaginationOptions } from '../../interfaces/pagination';
+import { salesSearchableFields } from './sales.constant';
 
 //** create sales service */
 const createSalesService = async (user: JwtPayload, payload: Sales) => {
@@ -35,6 +38,70 @@ const createSalesService = async (user: JwtPayload, payload: Sales) => {
   return result;
 };
 
+//** get all sales service */
+const getAllSalesService = async (params: any, options: IPaginationOptions) => {
+  const { searchTerm, ...filterData } = params;
+
+  const { page, limit, sortBy, sortOrder, skip } =
+    paginationHelper.calculatePagination(options);
+
+  const andConditions: Prisma.SalesWhereInput[] = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: salesSearchableFields.map((field) => ({
+        [field]: {
+          contains: searchTerm,
+          mode: 'insensitive',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map((key) => ({
+        [key]: {
+          equals: (filterData as any)[key],
+        },
+      })),
+    });
+  }
+
+  const whereConditions: Prisma.SalesWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const result = await prisma.sales.findMany({
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy:
+      sortBy && sortOrder
+        ? { [sortBy]: sortOrder }
+        : {
+            createdAt: 'desc',
+          },
+    include: {
+      user: true,
+      store: true,
+    },
+  });
+
+  const total = await prisma.sales.count({
+    where: whereConditions,
+  });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  };
+};
+
 export const salesService = {
   createSalesService,
+  getAllSalesService,
 };
