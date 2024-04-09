@@ -95,8 +95,8 @@ model ItemRequest {
   itemsCost        Float?
   invoiceImage     String?
   remarks          String?
-  isApproved       Boolean
-  requestStatus    RequestStatus
+  isApproved       Boolean       @default(false)
+  requestStatus    RequestStatus @default(PENDING)
   storeId          String
   userId           String
 
