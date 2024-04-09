@@ -33,7 +33,21 @@ const getAllSales: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** get sales by store Id controller */
+const getSalesByStoreId: RequestHandler = catchAsync(async (req, res) => {
+  const { storeId } = req.params;
+
+  const result = await salesService.getSalesByStoreId(storeId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Sales retrived successfully!',
+    data: result,
+  });
+});
+
 export const salesController = {
   createSales,
   getAllSales,
+  getSalesByStoreId,
 };

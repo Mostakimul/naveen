@@ -101,7 +101,23 @@ const getAllSalesService = async (params: any, options: IPaginationOptions) => {
   };
 };
 
+//** get sales by store ID service */
+const getSalesByStoreId = async (storeId: string) => {
+  const salesInfo = await prisma.sales.findMany({
+    where: {
+      storeId,
+    },
+    include: {
+      user: true,
+      store: true,
+    },
+  });
+
+  return salesInfo;
+};
+
 export const salesService = {
   createSalesService,
   getAllSalesService,
+  getSalesByStoreId,
 };

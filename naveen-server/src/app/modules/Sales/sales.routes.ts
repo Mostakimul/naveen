@@ -11,6 +11,12 @@ router.post(
   salesController.createSales,
 );
 
+router.get(
+  '/:storeId',
+  auth(UserRole.ADMIN, UserRole.RESTAURANT_MANAGER, UserRole.STORE_MANAGER),
+  salesController.getSalesByStoreId,
+);
+
 router.get('/', auth(UserRole.ADMIN), salesController.getAllSales);
 
 export const salesRoutes = router;
