@@ -68,7 +68,7 @@ model Store {
 model Sales {
   salesId   String   @id @unique @default(uuid())
   amount    Float
-  date      DateTime
+  date      DateTime @unique
   storeId   String
   userId    String
   createdAt DateTime @default(now())
