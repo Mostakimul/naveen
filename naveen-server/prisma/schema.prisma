@@ -21,11 +21,17 @@ enum UserRole {
   RESTAURANT_MANAGER
 }
 
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+}
+
 model User {
   userId      String        @id @unique @default(uuid())
   userCode    String        @unique
   password    String
   role        UserRole
+  status      UserStatus    @default(ACTIVE)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   store       Store?
