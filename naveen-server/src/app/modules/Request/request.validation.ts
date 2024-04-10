@@ -1,3 +1,4 @@
+import { RequestStatus } from '@prisma/client';
 import { z } from 'zod';
 
 const createRequestSchema = z.object({
@@ -8,6 +9,17 @@ const createRequestSchema = z.object({
   remarks: z.string().optional(),
 });
 
+const updateRequestStatusSchema = z.object({
+  requestStatus: z.enum([
+    RequestStatus.APPROVED,
+    RequestStatus.IN_TRANSIT,
+    RequestStatus.PENDING,
+    RequestStatus.RECEIEVED,
+    RequestStatus.REJECTED,
+  ]),
+});
+
 export const requestValidation = {
   createRequestSchema,
+  updateRequestStatusSchema,
 };

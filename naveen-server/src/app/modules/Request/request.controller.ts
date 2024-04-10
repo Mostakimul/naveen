@@ -16,6 +16,23 @@ const createItemRequest: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** create item request controller */
+const changeItemRequestStatus: RequestHandler = catchAsync(async (req, res) => {
+  const { reqId } = req.params;
+  const result = await requestService.changeItemsRequestStatusService(
+    reqId,
+    req.body,
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: 'Item request status updated successfully!',
+    data: result,
+  });
+});
+
 export const requestController = {
   createItemRequest,
+  changeItemRequestStatus,
 };

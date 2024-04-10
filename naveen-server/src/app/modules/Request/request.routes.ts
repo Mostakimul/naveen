@@ -19,4 +19,11 @@ router.post(
   requestController.createItemRequest,
 );
 
+router.put(
+  '/change-status/:reqId',
+  auth(UserRole.ADMIN),
+  validateRequest(requestValidation.updateRequestStatusSchema),
+  requestController.changeItemRequestStatus,
+);
+
 export const requestRoutes = router;
