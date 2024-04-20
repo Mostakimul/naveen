@@ -1,10 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import UserAvatar from '../images/user-avatar-32.png';
+import { logout, selectCurrentUser } from '../redux/features/auth/authSlice';
 import Transition from '../utils/Transition';
 
-import UserAvatar from '../images/user-avatar-32.png';
-
 function DropdownProfile({ align }) {
+  const user = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
@@ -54,7 +61,7 @@ function DropdownProfile({ align }) {
         />
         <div className="flex items-center truncate">
           <span className="truncate ml-2 text-sm font-medium dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-200">
-            Pauli
+            {user?.userCode}
           </span>
           <svg
             className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400"
@@ -87,18 +94,17 @@ function DropdownProfile({ align }) {
               Role
             </div>
             <div className="text-xs text-slate-500 dark:text-slate-400 italic">
-              Admin
+              {user?.role}
             </div>
           </div>
           <ul>
             <li>
-              <Link
+              <button
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
-                to="/signin"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={handleLogout}
               >
                 Sign Out
-              </Link>
+              </button>
             </li>
           </ul>
         </div>

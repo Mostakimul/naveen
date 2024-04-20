@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
+import ProtectedRoute from '../layout/ProtectedRoute';
 import AllUsers from '../pages/AllUsers';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
@@ -12,7 +13,11 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/users/all-users',
