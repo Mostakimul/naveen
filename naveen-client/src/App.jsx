@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { Toaster } from 'sonner';
 import './css/style.css';
 
 import './charts/ChartjsConfig';
@@ -17,7 +18,12 @@ function App() {
     document.querySelector('html').style.scrollBehavior = '';
   }, [location.pathname]); // triggered on route change
 
-  return <MainLayout />;
+  return (
+    <>
+      <MainLayout />
+      <Toaster />
+    </>
+  );
 }
 
 export default App;
