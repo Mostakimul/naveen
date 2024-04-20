@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import ProtectedRoute from '../layout/ProtectedRoute';
-import AllUsers from '../pages/AllUsers';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
-import Register from '../pages/Register';
+import AllUsers from '../pages/admin/userManagement/AllUsers';
+import CreateUser from '../pages/admin/userManagement/CreateUser';
 
 const routes = createBrowserRouter([
   {
@@ -21,7 +21,19 @@ const routes = createBrowserRouter([
       },
       {
         path: '/users/all-users',
-        element: <AllUsers />,
+        element: (
+          <ProtectedRoute>
+            <AllUsers />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/users/create-user',
+        element: (
+          <ProtectedRoute>
+            <CreateUser />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -29,10 +41,7 @@ const routes = createBrowserRouter([
     path: '/login',
     element: <Login />,
   },
-  {
-    path: '/register',
-    element: <Register />,
-  },
+
   // {
   //   path: '/signup',
   //   element: <Signup />,
