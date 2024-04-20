@@ -16,6 +16,8 @@ app.use(
 );
 app.use(cookieParser());
 
+app.use(cors({ origin: ['http://localhost:5173'], credentials: true }));
+
 app.get('/', (req: Request, res: Response) => {
   res.send({
     Message: 'Naveen LLC server...',
