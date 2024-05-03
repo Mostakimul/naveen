@@ -10,7 +10,14 @@ const managerSaleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['sale'],
     }),
+    getMySales: builder.query({
+      query: () => ({
+        url: '/sales/my-sales',
+        method: 'GET',
+      }),
+      providesTags: ['my-sale'],
+    }),
   }),
 });
 
-export const { useAddSaleMutation } = managerSaleApi;
+export const { useAddSaleMutation, useGetMySalesQuery } = managerSaleApi;

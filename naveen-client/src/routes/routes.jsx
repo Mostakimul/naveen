@@ -10,6 +10,7 @@ import AllUsers from '../pages/admin/userManagement/AllUsers';
 import CreateUser from '../pages/admin/userManagement/CreateUser';
 import EditUser from '../pages/admin/userManagement/EditUser';
 import AddSale from '../pages/manager/AddSale';
+import MySale from '../pages/manager/MySale';
 
 const routes = createBrowserRouter([
   {
@@ -77,6 +78,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <AddSale />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/sales/my-sales',
+        element: (
+          <ProtectedRoute>
+            <MySale />
           </ProtectedRoute>
         ),
       },
