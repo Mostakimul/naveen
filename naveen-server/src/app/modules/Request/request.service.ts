@@ -55,7 +55,15 @@ const changeItemsRequestStatusService = async (
   return result;
 };
 
+//** change items request status service */
+const getAllRequestedItemsService = async () => {
+  const result = await prisma.itemRequest.findMany();
+
+  return result;
+};
+
 export const requestService = {
   createRequestService,
   changeItemsRequestStatusService,
+  getAllRequestedItemsService,
 };

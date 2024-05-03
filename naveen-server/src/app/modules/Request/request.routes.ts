@@ -26,4 +26,10 @@ router.put(
   requestController.changeItemRequestStatus,
 );
 
+router.get(
+  '/',
+  auth(UserRole.ADMIN, UserRole.WAREHOUSE_MANAGER),
+  requestController.getAllRequestedItems,
+);
+
 export const requestRoutes = router;

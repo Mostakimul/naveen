@@ -32,7 +32,20 @@ const changeItemRequestStatus: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** create item request controller */
+const getAllRequestedItems: RequestHandler = catchAsync(async (req, res) => {
+  const result = await requestService.getAllRequestedItemsService();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All items request retrived successfully!',
+    data: result,
+  });
+});
+
 export const requestController = {
   createItemRequest,
   changeItemRequestStatus,
+  getAllRequestedItems,
 };
