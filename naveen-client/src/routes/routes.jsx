@@ -3,6 +3,8 @@ import App from '../App';
 import ProtectedRoute from '../layout/ProtectedRoute';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
+import AllStore from '../pages/admin/storeManagement/AllStore';
+import CreateStore from '../pages/admin/storeManagement/CreateStore';
 import AllUsers from '../pages/admin/userManagement/AllUsers';
 import CreateUser from '../pages/admin/userManagement/CreateUser';
 
@@ -32,6 +34,22 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <CreateUser />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/store/all-stores',
+        element: (
+          <ProtectedRoute>
+            <AllStore />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/store/create-store',
+        element: (
+          <ProtectedRoute>
+            <CreateStore />
           </ProtectedRoute>
         ),
       },

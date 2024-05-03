@@ -58,13 +58,12 @@ const getAllStoreService = async (params: any, options: IPaginationOptions) => {
         : {
             createdAt: 'desc',
           },
-    select: {
-      storeId: true,
-      storeLocation: true,
-      storeName: true,
-      storeType: true,
-      createdAt: true,
-      updatedAt: true,
+    include: {
+      user: {
+        select: {
+          userCode: true,
+        },
+      },
     },
   });
 
