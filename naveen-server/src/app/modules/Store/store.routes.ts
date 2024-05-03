@@ -20,4 +20,10 @@ router.get(
   storeController.getAllStores,
 );
 
+router.patch(
+  '/change-manager/:storeId',
+  auth(UserRole.ADMIN),
+  storeController.changeManager,
+);
+
 export const storeRoutes = router;

@@ -1,6 +1,8 @@
 import { Prisma, Store } from '@prisma/client';
+import httpStatus from 'http-status';
 import { paginationHelper } from '../../../helpers/paginationHelper';
 import prisma from '../../../shared/prisma';
+import ApiError from '../../errors/ApiError';
 import { IPaginationOptions } from '../../interfaces/pagination';
 import { storeSearchableFields } from './store.constant';
 
@@ -80,7 +82,32 @@ const getAllStoreService = async (params: any, options: IPaginationOptions) => {
   };
 };
 
+const changeManagerService = async (storeId: string, params: any) => {
+  const { newManager } = params;
+  const existingStore = await prisma.store.findUnique({
+    where: {
+      storeId,
+    },
+  });
+
+  if (!existingStore) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Store doesn't exist!");
+  }
+
+  const result = await prisma.store.update({
+    where: {
+      storeId,
+    },
+    data: {
+      manager: newManager,
+    },
+  });
+
+  return result;
+};
+
 export const storeService = {
   createStoreService,
   getAllStoreService,
+  changeManagerService,
 };

@@ -33,7 +33,21 @@ const getAllStores: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** change store manager controller */
+const changeManager: RequestHandler = catchAsync(async (req, res) => {
+  const { storeId } = req.params;
+
+  const result = await storeService.changeManagerService(storeId, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Store manager changed successfully!',
+    data: result,
+  });
+});
+
 export const storeController = {
   createStore,
   getAllStores,
+  changeManager,
 };
