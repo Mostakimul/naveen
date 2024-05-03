@@ -5,6 +5,16 @@ import { salesController } from './sales.controller';
 
 const router = express.Router();
 
+router.get(
+  '/my-sales',
+  auth(
+    UserRole.STORE_MANAGER,
+    UserRole.RESTAURANT_MANAGER,
+    UserRole.WAREHOUSE_MANAGER,
+  ),
+  salesController.getMySales,
+);
+
 router.post(
   '/add-sale',
   auth(UserRole.STORE_MANAGER, UserRole.RESTAURANT_MANAGER, UserRole.ADMIN),

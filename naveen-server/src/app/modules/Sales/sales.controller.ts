@@ -46,8 +46,30 @@ const getSalesByStoreId: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** get all sales controller */
+const getMySales: RequestHandler = catchAsync(async (req, res) => {
+  const finalQuery = pick(req.query, salesFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  const { userCode } = req.user;
+
+  const result = await salesService.getMySalesService(
+    userCode,
+    finalQuery,
+    options,
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My Sales retrived successfully!',
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
 export const salesController = {
   createSales,
   getAllSales,
   getSalesByStoreId,
+  getMySales,
 };
