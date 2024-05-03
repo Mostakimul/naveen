@@ -163,10 +163,22 @@ const updateUserService = async (userId: string, payload: Partial<User>) => {
   return result;
 };
 
+// ** get single user */
+const getSingleUserService = async (userId: string) => {
+  const result = await prisma.user.findUniqueOrThrow({
+    where: {
+      userId,
+    },
+  });
+
+  return result;
+};
+
 export const userService = {
   createAdminService,
   createManagerService,
   getAllUserService,
   softDeleteUserService,
   updateUserService,
+  getSingleUserService,
 };

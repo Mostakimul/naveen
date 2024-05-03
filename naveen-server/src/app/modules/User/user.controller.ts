@@ -69,10 +69,24 @@ const updateUser: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** get single user controller */
+const getSingleUser: RequestHandler = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+
+  const result = await userService.getSingleUserService(userId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User retrived successfully!',
+    data: result,
+  });
+});
+
 export const userController = {
   createAdmin,
   createManager,
   getAllUsers,
   softDeleteUser,
   updateUser,
+  getSingleUser,
 };

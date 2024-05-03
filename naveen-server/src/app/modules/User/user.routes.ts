@@ -26,6 +26,12 @@ router.get(
   userController.getAllUsers,
 );
 
+router.get(
+  '/:userId',
+  auth(UserRole.ADMIN, UserRole.WAREHOUSE_MANAGER),
+  userController.getSingleUser,
+);
+
 router.patch(
   '/soft-delete/:userId',
   auth(UserRole.ADMIN),
