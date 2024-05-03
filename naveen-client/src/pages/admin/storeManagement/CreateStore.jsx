@@ -8,8 +8,6 @@ const CreateStore = () => {
   const [createStore] = useCreateStoreMutation();
   const { data: users } = useGetAllUsersQuery();
 
-  console.log(users);
-
   const {
     register,
     handleSubmit,
@@ -113,7 +111,9 @@ const CreateStore = () => {
               {...register('manager', { required: true })}
             >
               {users?.data.map((user) => (
-                <option value={user?.userId}>{user?.userCode}</option>
+                <option key={user.userId} value={user?.userId}>
+                  {user?.userCode}
+                </option>
               ))}
             </select>
           </label>

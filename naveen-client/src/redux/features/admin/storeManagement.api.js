@@ -33,8 +33,18 @@ const storeManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['store'],
     }),
+    deleteStore: builder.mutation({
+      query: (id) => ({
+        url: `/store/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['store'],
+    }),
   }),
 });
 
-export const { useCreateStoreMutation, useGetAllStoresQuery } =
-  storeManagementApi;
+export const {
+  useCreateStoreMutation,
+  useGetAllStoresQuery,
+  useDeleteStoreMutation,
+} = storeManagementApi;
