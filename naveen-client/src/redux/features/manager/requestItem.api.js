@@ -35,49 +35,52 @@ const requestItemApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['item'],
     }),
-    // createManager: builder.mutation({
-    //   query: (data) => ({
-    //     url: '/user/create-manager',
-    //     method: 'POST',
-    //     body: data,
-    //   }),
-    //   invalidatesTags: ['user'],
-    // }),
-    // softDeleteUser: builder.mutation({
-    //   query: (id) => ({
-    //     url: `/user/soft-delete/${id}`,
-    //     method: 'PATCH',
-    //   }),
-    //   invalidatesTags: ['user'],
-    // }),
-    // updateUser: builder.mutation({
-    //   query: (data) => {
-    //     const { userId, ...rest } = data;
-    //     return {
-    //       url: `/user/${userId}`,
-    //       method: 'PATCH',
-    //       body: rest,
-    //     };
-    //   },
-    //   invalidatesTags: (result, error, arg) => {
-    //     'user', { type: 'user', userId: arg.userId };
-    //   },
-    // }),
-    // getSingleUser: builder.query({
-    //   query: (id) => {
-    //     return {
-    //       url: `/user/${id}`,
-    //       method: 'GET',
-    //     };
-    //   },
-    //   transformResponse: (response) => {
-    //     return {
-    //       data: response.data,
-    //     };
-    //   },
-    //   providesTags: ['user'],
-    // }),
+    getSingleRequestItem: builder.query({
+      query: (id) => {
+        return {
+          url: `/requests/${id}`,
+          method: 'GET',
+        };
+      },
+      transformResponse: (response) => {
+        return {
+          data: response.data,
+        };
+      },
+    }),
+    getMyRequestItem: builder.query({
+      query: () => {
+        return {
+          url: `/requests/my-request`,
+          method: 'GET',
+        };
+      },
+      transformResponse: (response) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: ['item'],
+    }),
+    getAllRequestItem: builder.query({
+      query: () => {
+        return {
+          url: `/requests`,
+          method: 'GET',
+        };
+      },
+      transformResponse: (response) => {
+        return {
+          data: response.data,
+        };
+      },
+    }),
   }),
 });
 
-export const { useCreateItemRequestMutation } = requestItemApi;
+export const {
+  useCreateItemRequestMutation,
+  useGetSingleRequestItemQuery,
+  useGetMyRequestItemQuery,
+  useGetAllRequestItemQuery,
+} = requestItemApi;

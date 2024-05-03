@@ -12,6 +12,7 @@ import EditUser from '../pages/admin/userManagement/EditUser';
 import AddSale from '../pages/manager/AddSale';
 import MySale from '../pages/manager/MySale';
 import RequestItem from '../pages/manager/RequestItem';
+import RequestedItems from '../pages/manager/RequestedItems';
 
 const routes = createBrowserRouter([
   {
@@ -95,6 +96,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <RequestItem />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/items/my-requests',
+        element: (
+          <ProtectedRoute>
+            <RequestedItems />
           </ProtectedRoute>
         ),
       },
