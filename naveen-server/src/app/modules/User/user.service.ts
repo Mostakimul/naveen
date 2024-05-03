@@ -62,6 +62,10 @@ const getAllUserService = async (params: any, options: IPaginationOptions) => {
     });
   }
 
+  andConditions.push({
+    status: UserStatus.ACTIVE,
+  });
+
   if (Object.keys(filterData).length > 0) {
     andConditions.push({
       AND: Object.keys(filterData).map((key) => ({
