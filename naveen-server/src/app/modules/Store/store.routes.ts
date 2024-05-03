@@ -26,4 +26,6 @@ router.patch(
   storeController.changeManager,
 );
 
+router.delete('/:storeId', auth(UserRole.ADMIN), storeController.deleteStore);
+
 export const storeRoutes = router;

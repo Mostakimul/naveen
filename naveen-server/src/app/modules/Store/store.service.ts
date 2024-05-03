@@ -105,8 +105,26 @@ const changeManagerService = async (storeId: string, params: any) => {
   return result;
 };
 
+//** delete store */
+const deleteStoreService = async (storeId: string) => {
+  await prisma.store.findUniqueOrThrow({
+    where: {
+      storeId,
+    },
+  });
+
+  const result = await prisma.store.delete({
+    where: {
+      storeId,
+    },
+  });
+
+  return result;
+};
+
 export const storeService = {
   createStoreService,
   getAllStoreService,
   changeManagerService,
+  deleteStoreService,
 };

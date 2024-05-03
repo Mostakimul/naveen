@@ -46,8 +46,22 @@ const changeManager: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** delete store controller */
+const deleteStore: RequestHandler = catchAsync(async (req, res) => {
+  const { storeId } = req.params;
+
+  const result = await storeService.deleteStoreService(storeId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Store deleted successfully!',
+    data: result,
+  });
+});
+
 export const storeController = {
   createStore,
   getAllStores,
   changeManager,
+  deleteStore,
 };
