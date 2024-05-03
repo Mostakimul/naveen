@@ -7,6 +7,7 @@ import AllStore from '../pages/admin/storeManagement/AllStore';
 import CreateStore from '../pages/admin/storeManagement/CreateStore';
 import AllUsers from '../pages/admin/userManagement/AllUsers';
 import CreateUser from '../pages/admin/userManagement/CreateUser';
+import EditUser from '../pages/admin/userManagement/EditUser';
 
 const routes = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <AllUsers />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/users/edit-user/:userId',
+        element: (
+          <ProtectedRoute>
+            <EditUser />
           </ProtectedRoute>
         ),
       },

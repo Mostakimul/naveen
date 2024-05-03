@@ -50,6 +50,33 @@ const userManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['user'],
     }),
+    updateUser: builder.mutation({
+      query: (data) => {
+        const { userId, ...rest } = data;
+        return {
+          url: `/user/${userId}`,
+          method: 'PATCH',
+          body: rest,
+        };
+      },
+      invalidatesTags: (result, error, arg) => {
+        'user', { type: 'user', userId: arg.userId };
+      },
+    }),
+    getSingleUser: builder.query({
+      query: (id) => {
+        return {
+          url: `/user/${id}`,
+          method: 'GET',
+        };
+      },
+      transformResponse: (response) => {
+        return {
+          data: response.data,
+        };
+      },
+      providesTags: ['user'],
+    }),
   }),
 });
 
@@ -58,4 +85,6 @@ export const {
   useCreateAdminMutation,
   useCreateManagerMutation,
   useSoftDeleteUserMutation,
+  useUpdateUserMutation,
+  useGetSingleUserQuery,
 } = userManagementApi;
