@@ -46,10 +46,10 @@ const AllUsers = () => {
       </header>
 
       <div className="relative p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
-        <div className="relative">
-          <table className="w-full table-auto border-separate border-spacing-2 border border-slate-500">
+        <div className="overflow-x-auto">
+          <table className="table">
             <thead>
-              <tr>
+              <tr className="text-center">
                 <th className="border border-slate-600">User Code</th>
                 <th className="border border-slate-600">Role</th>
                 <th className="border border-slate-600">Action</th>

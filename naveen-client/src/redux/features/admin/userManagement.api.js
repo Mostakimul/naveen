@@ -25,6 +25,7 @@ const userManagementApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
+      providesTags: ['user'],
     }),
     createAdmin: builder.mutation({
       query: (data) => ({
@@ -32,6 +33,7 @@ const userManagementApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['user'],
     }),
     createManager: builder.mutation({
       query: (data) => ({
@@ -39,6 +41,14 @@ const userManagementApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['user'],
+    }),
+    softDeleteUser: builder.mutation({
+      query: (id) => ({
+        url: `/user/soft-delete/${id}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['user'],
     }),
   }),
 });
@@ -47,4 +57,5 @@ export const {
   useGetAllUsersQuery,
   useCreateAdminMutation,
   useCreateManagerMutation,
+  useSoftDeleteUserMutation,
 } = userManagementApi;
