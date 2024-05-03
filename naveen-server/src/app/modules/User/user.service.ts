@@ -145,9 +145,28 @@ const softDeleteUserService = async (userId: string) => {
   return result;
 };
 
+// ** edit user */
+const updateUserService = async (userId: string, payload: Partial<User>) => {
+  await prisma.user.findUniqueOrThrow({
+    where: {
+      userId,
+    },
+  });
+
+  const result = await prisma.user.update({
+    where: {
+      userId,
+    },
+    data: payload,
+  });
+
+  return result;
+};
+
 export const userService = {
   createAdminService,
   createManagerService,
   getAllUserService,
   softDeleteUserService,
+  updateUserService,
 };

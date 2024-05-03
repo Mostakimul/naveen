@@ -56,9 +56,23 @@ const softDeleteUser: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** update user controller */
+const updateUser: RequestHandler = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+
+  const result = await userService.updateUserService(userId, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User updated successfully!',
+    data: result,
+  });
+});
+
 export const userController = {
   createAdmin,
   createManager,
   getAllUsers,
   softDeleteUser,
+  updateUser,
 };
