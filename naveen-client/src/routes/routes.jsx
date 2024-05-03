@@ -3,6 +3,7 @@ import App from '../App';
 import ProtectedRoute from '../layout/ProtectedRoute';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
+import AllSale from '../pages/admin/saleManagement/AllSale';
 import AllStore from '../pages/admin/storeManagement/AllStore';
 import CreateStore from '../pages/admin/storeManagement/CreateStore';
 import AllUsers from '../pages/admin/userManagement/AllUsers';
@@ -59,6 +60,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <CreateStore />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/sales/all-sales',
+        element: (
+          <ProtectedRoute>
+            <AllSale />
           </ProtectedRoute>
         ),
       },
