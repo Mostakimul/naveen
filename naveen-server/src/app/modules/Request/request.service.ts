@@ -57,7 +57,12 @@ const changeItemsRequestStatusService = async (
 
 //** change items request status service */
 const getAllRequestedItemsService = async () => {
-  const result = await prisma.itemRequest.findMany();
+  const result = await prisma.itemRequest.findMany({
+    include: {
+      user: true,
+      store: true,
+    },
+  });
 
   return result;
 };
@@ -84,6 +89,10 @@ const getMyRequestedItemsService = async (user: JwtPayload) => {
       user: {
         userCode: user.userCode,
       },
+    },
+    include: {
+      user: true,
+      store: true,
     },
   });
 
