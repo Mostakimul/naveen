@@ -68,6 +68,23 @@ const getSingleRequestedItemsService = async (requestId: string) => {
     where: {
       requestId: requestId,
     },
+    include: {
+      store: true,
+      user: true,
+    },
+  });
+
+  return result;
+};
+
+//** get items request status service */
+const getMyRequestedItemsService = async (user: JwtPayload) => {
+  const result = await prisma.itemRequest.findMany({
+    where: {
+      user: {
+        userCode: user.userCode,
+      },
+    },
   });
 
   return result;
@@ -78,4 +95,5 @@ export const requestService = {
   changeItemsRequestStatusService,
   getAllRequestedItemsService,
   getSingleRequestedItemsService,
+  getMyRequestedItemsService,
 };

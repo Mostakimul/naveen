@@ -27,6 +27,17 @@ router.put(
 );
 
 router.get(
+  '/my-request',
+  auth(
+    UserRole.ADMIN,
+    UserRole.WAREHOUSE_MANAGER,
+    UserRole.RESTAURANT_MANAGER,
+    UserRole.STORE_MANAGER,
+  ),
+  requestController.getMyRequestedItems,
+);
+
+router.get(
   '/:requestId',
   auth(UserRole.ADMIN, UserRole.WAREHOUSE_MANAGER),
   requestController.getSingleRequestedItems,

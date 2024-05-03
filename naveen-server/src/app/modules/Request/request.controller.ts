@@ -57,9 +57,22 @@ const getSingleRequestedItems: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** get my item request controller */
+const getMyRequestedItems: RequestHandler = catchAsync(async (req, res) => {
+  const result = await requestService.getMyRequestedItemsService(req.user);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My requestd item retrived successfully!',
+    data: result,
+  });
+});
+
 export const requestController = {
   createItemRequest,
   changeItemRequestStatus,
   getAllRequestedItems,
   getSingleRequestedItems,
+  getMyRequestedItems,
 };
