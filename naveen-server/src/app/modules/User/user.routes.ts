@@ -26,4 +26,10 @@ router.get(
   userController.getAllUsers,
 );
 
+router.patch(
+  '/soft-delete/:userId',
+  auth(UserRole.ADMIN),
+  userController.softDeleteUser,
+);
+
 export const userRoutes = router;

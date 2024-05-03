@@ -43,8 +43,22 @@ const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** get all user controller */
+const softDeleteUser: RequestHandler = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+
+  const result = await userService.softDeleteUserService(userId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User deleted successfully!',
+    data: result,
+  });
+});
+
 export const userController = {
   createAdmin,
   createManager,
   getAllUsers,
+  softDeleteUser,
 };

@@ -1,7 +1,9 @@
-import { Prisma, User, UserRole } from '@prisma/client';
+import { Prisma, User, UserRole, UserStatus } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import httpStatus from 'http-status';
 import { paginationHelper } from '../../../helpers/paginationHelper';
 import prisma from '../../../shared/prisma';
+import ApiError from '../../errors/ApiError';
 import { IPaginationOptions } from '../../interfaces/pagination';
 import { userSearchableFields } from './user.constant';
 
@@ -106,8 +108,42 @@ const getAllUserService = async (params: any, options: IPaginationOptions) => {
   };
 };
 
+//** delete user */
+const softDeleteUserService = async (userId: string) => {
+  const existingUser = await prisma.user.findUniqueOrThrow({
+    where: {
+      userId,
+    },
+  });
+
+  const isStoreAssigned = await prisma.store.findFirst({
+    where: {
+      manager: userId,
+    },
+  });
+
+  if (isStoreAssigned) {
+    throw new ApiError(
+      httpStatus.FORBIDDEN,
+      'Manager already assigned to a store!',
+    );
+  }
+
+  const result = await prisma.user.update({
+    where: {
+      userId,
+    },
+    data: {
+      status: UserStatus.BLOCKED,
+    },
+  });
+
+  return result;
+};
+
 export const userService = {
   createAdminService,
   createManagerService,
   getAllUserService,
+  softDeleteUserService,
 };
