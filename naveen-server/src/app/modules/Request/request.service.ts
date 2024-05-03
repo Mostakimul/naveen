@@ -62,8 +62,20 @@ const getAllRequestedItemsService = async () => {
   return result;
 };
 
+//** get items request status service */
+const getSingleRequestedItemsService = async (requestId: string) => {
+  const result = await prisma.itemRequest.findUniqueOrThrow({
+    where: {
+      requestId: requestId,
+    },
+  });
+
+  return result;
+};
+
 export const requestService = {
   createRequestService,
   changeItemsRequestStatusService,
   getAllRequestedItemsService,
+  getSingleRequestedItemsService,
 };

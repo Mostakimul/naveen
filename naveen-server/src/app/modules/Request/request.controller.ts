@@ -32,7 +32,7 @@ const changeItemRequestStatus: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-//** create item request controller */
+//** get all item request controller */
 const getAllRequestedItems: RequestHandler = catchAsync(async (req, res) => {
   const result = await requestService.getAllRequestedItemsService();
 
@@ -44,8 +44,22 @@ const getAllRequestedItems: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//** get single item request controller */
+const getSingleRequestedItems: RequestHandler = catchAsync(async (req, res) => {
+  const { requestId } = req.params;
+  const result = await requestService.getSingleRequestedItemsService(requestId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Request item retrived successfully!',
+    data: result,
+  });
+});
+
 export const requestController = {
   createItemRequest,
   changeItemRequestStatus,
   getAllRequestedItems,
+  getSingleRequestedItems,
 };
