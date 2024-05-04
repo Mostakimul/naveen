@@ -1,4 +1,8 @@
-##### Live Link: [Comming Soon]
+##### Live Link: https://naveen-server.vercel.app/api/v1
+
+### Frontend Repo Link: https://github.com/Mostakimul/naveen/tree/main/naveen-client
+
+### API endpoints documentation: https://documenter.getpostman.com/view/16306758/2sA3JGeNkm
 
 ## How to Run Locally
 
@@ -49,44 +53,3 @@ It is sales and inventory management system for comapnies internal use and custo
 - zod
 - bcrypt (for password hashing)
 - JSON Web Tokens (JWT) for authentication
-
-## API Endpoints
-
-### Authentication
-
-- **Create Admin**
-
-  - Method: POST
-  - Path: `/api/v1/create-admin`
-
-- **Create Manager**
-
-  - Method: POST
-  - Path: `/api/v1/create-manager`
-
-- **Login User**
-
-  - Method: POST
-  - Path: `/api/v1/login`
-
-- **Refresh Token**
-  - Method: POST
-  - Path: `/api/v1/refresh-token`
-
-### Users
-
-- **Get All User**
-  - Method: GET
-  - Path: `/api/v1/user`
-
-### Stores
-
-- **Create Store**
-
-  - Method: POST
-  - Path: `/api/v1/store/create-store`
-
-- **Get all stores**
-
-  - Method: GET
-  - Path: `/api/v1/store`
