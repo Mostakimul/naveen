@@ -4,6 +4,7 @@ import ProtectedRoute from '../layout/ProtectedRoute';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
 import AllItemRequest from '../pages/admin/itemManagement/AllItemRequest';
+import EditItemRequest from '../pages/admin/itemManagement/EditItemRequest';
 import AllSale from '../pages/admin/saleManagement/AllSale';
 import AllStore from '../pages/admin/storeManagement/AllStore';
 import CreateStore from '../pages/admin/storeManagement/CreateStore';
@@ -113,6 +114,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <AllItemRequest />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/items/edit-request/:reqId',
+        element: (
+          <ProtectedRoute>
+            <EditItemRequest />
           </ProtectedRoute>
         ),
       },

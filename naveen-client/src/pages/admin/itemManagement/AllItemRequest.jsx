@@ -1,7 +1,7 @@
 import React from 'react';
 import Error from '../../../components/Error';
 import ItemsList from '../../../partials/admin/ItemsList';
-import { useGetAllRequestItemQuery } from '../../../redux/features/manager/requestItem.api';
+import { useGetAllRequestItemQuery } from '../../../redux/features/admin/itemManagement.api';
 
 const AllItemRequest = () => {
   const {
@@ -44,7 +44,7 @@ const AllItemRequest = () => {
     <div className="col-span-full xl:col-span-6 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
         <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-          My Requested Items
+          All Requested Items
         </h2>
       </header>
 
@@ -55,9 +55,14 @@ const AllItemRequest = () => {
               <tr className="text-center">
                 <th className="border border-slate-600">Items</th>
                 <th className="border border-slate-600">Items Description</th>
+                <th className="border border-slate-600">Items Cost</th>
+                <th className="border border-slate-600">Items Invoice</th>
+                <th className="border border-slate-600">Remarks</th>
                 <th className="border border-slate-600">Status</th>
                 <th className="border border-slate-600">Store Name</th>
                 <th className="border border-slate-600">Manager</th>
+                <th className="border border-slate-600">Request Date</th>
+                <th className="border border-slate-600">Action</th>
               </tr>
             </thead>
             <tbody>{content}</tbody>
