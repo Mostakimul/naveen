@@ -1,15 +1,15 @@
 import React from 'react';
-import Error from '../../components/Error';
-import ItemsList from '../../partials/manager/ItemsList';
-import { useGetMyRequestItemQuery } from '../../redux/features/manager/requestItem.api';
+import Error from '../../../components/Error';
+import ItemsList from '../../../partials/admin/ItemsList';
+import { useGetAllRequestItemQuery } from '../../../redux/features/manager/requestItem.api';
 
-const RequestedItems = () => {
+const AllItemRequest = () => {
   const {
     data: items,
     isError,
     error,
     isLoading,
-  } = useGetMyRequestItemQuery(undefined, {
+  } = useGetAllRequestItemQuery(undefined, {
     refetchOnMountOrArgChange: true,
   }) || {};
   let content = null;
@@ -68,4 +68,4 @@ const RequestedItems = () => {
   );
 };
 
-export default RequestedItems;
+export default AllItemRequest;
