@@ -33,10 +33,7 @@ const createRequestService = async (user: JwtPayload, payload: ItemRequest) => {
 };
 
 //** change items request status service */
-const changeItemsRequestStatusService = async (
-  requestId: string,
-  payload: RequestStatus,
-) => {
+const updateItemsRequestService = async (requestId: string, payload: any) => {
   await prisma.itemRequest.findUniqueOrThrow({
     where: {
       requestId,
@@ -47,9 +44,7 @@ const changeItemsRequestStatusService = async (
     where: {
       requestId,
     },
-    data: {
-      requestStatus: payload,
-    },
+    data: payload,
   });
 
   return result;
@@ -101,7 +96,7 @@ const getMyRequestedItemsService = async (user: JwtPayload) => {
 
 export const requestService = {
   createRequestService,
-  changeItemsRequestStatusService,
+  updateItemsRequestService,
   getAllRequestedItemsService,
   getSingleRequestedItemsService,
   getMyRequestedItemsService,

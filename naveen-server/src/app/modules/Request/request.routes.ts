@@ -19,11 +19,11 @@ router.post(
   requestController.createItemRequest,
 );
 
-router.put(
-  '/change-status/:reqId',
-  auth(UserRole.ADMIN),
+router.patch(
+  '/:reqId',
+  auth(UserRole.ADMIN, UserRole.WAREHOUSE_MANAGER),
   validateRequest(requestValidation.updateRequestStatusSchema),
-  requestController.changeItemRequestStatus,
+  requestController.updateItemRequest,
 );
 
 router.get(
