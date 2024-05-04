@@ -4,7 +4,6 @@ const userManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllUsers: builder.query({
       query: (args) => {
-        console.log(args);
         const params = new URLSearchParams();
 
         if (args) {
@@ -51,17 +50,20 @@ const userManagementApi = baseApi.injectEndpoints({
       invalidatesTags: ['user'],
     }),
     updateUser: builder.mutation({
-      query: (data) => {
-        const { userId, ...rest } = data;
+      query: ({ userId, data }) => {
         return {
           url: `/user/${userId}`,
           method: 'PATCH',
-          body: rest,
+          body: data,
         };
       },
-      invalidatesTags: (result, error, arg) => {
-        'user', { type: 'user', userId: arg.userId };
-      },
+      invalidatesTags: (result, error, arg) => [
+        'user',
+        {
+          type: 'singleUser',
+          userId: arg.userId,
+        },
+      ],
     }),
     getSingleUser: builder.query({
       query: (id) => {
@@ -75,7 +77,12 @@ const userManagementApi = baseApi.injectEndpoints({
           data: response.data,
         };
       },
-      providesTags: ['user'],
+      providesTags: (result, error, arg) => [
+        {
+          type: 'singleUser',
+          id: arg.id,
+        },
+      ],
     }),
   }),
 });
