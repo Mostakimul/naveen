@@ -10,13 +10,18 @@ const createRequestSchema = z.object({
 });
 
 const updateRequestStatusSchema = z.object({
-  requestStatus: z.enum([
-    RequestStatus.APPROVED,
-    RequestStatus.IN_TRANSIT,
-    RequestStatus.PENDING,
-    RequestStatus.RECEIEVED,
-    RequestStatus.REJECTED,
-  ]),
+  requestStatus: z
+    .enum([
+      RequestStatus.APPROVED,
+      RequestStatus.IN_TRANSIT,
+      RequestStatus.PENDING,
+      RequestStatus.RECEIEVED,
+      RequestStatus.REJECTED,
+    ])
+    .optional(),
+  itemsCost: z.number().optional(),
+  invoiceImage: z.string().optional(),
+  remarks: z.string().optional(),
 });
 
 export const requestValidation = {
