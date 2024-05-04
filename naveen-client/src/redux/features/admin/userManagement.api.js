@@ -47,7 +47,13 @@ const userManagementApi = baseApi.injectEndpoints({
         url: `/user/soft-delete/${id}`,
         method: 'PATCH',
       }),
-      invalidatesTags: ['user'],
+      invalidatesTags: (result, error, arg) => [
+        'user',
+        {
+          type: 'singleUser',
+          id: arg.id,
+        },
+      ],
     }),
     updateUser: builder.mutation({
       query: ({ userId, data }) => {
