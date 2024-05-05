@@ -1,4 +1,4 @@
-##### Live Link: https://naveen-client-dhmvwhg07-mostakimuls-projects.vercel.app/
+##### Live Link: https://naveen-client.vercel.app/
 
 ### Backend Repo Link: https://github.com/Mostakimul/naveen/tree/main/naveen-server
 
