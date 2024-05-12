@@ -107,27 +107,7 @@ const Login = () => {
                   Log in
                 </button>
               </form>
-
-              {/* Form End */}
-
               <hr className="my-8" />
-
-              <p className="mt-4">
-                <a
-                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                  href="./forgot-password.html"
-                >
-                  Forgot your password?
-                </a>
-              </p>
-              <p className="mt-1">
-                <a
-                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                  href="./create-account.html"
-                >
-                  Create account
-                </a>
-              </p>
             </div>
           </div>
         </div>
