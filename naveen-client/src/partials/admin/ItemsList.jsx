@@ -21,7 +21,9 @@ const ItemsList = ({ item }) => {
       <td className="border border-slate-600">{itemsName.join(', ')}</td>
       <td className="border border-slate-600">{itemsDescription}</td>
       <td className="border border-slate-600">$ {itemsCost || '00.00'}</td>
-      <td className="border border-slate-600">{invoiceImage || 'N/A'}</td>
+      <td className="border border-slate-600">
+        {invoiceImage ? <img src={invoiceImage} /> : <span>N/A</span>}
+      </td>
       <td className="border border-slate-600">{remarks || 'N/A'}</td>
       <td className="border border-slate-600">
         <span
