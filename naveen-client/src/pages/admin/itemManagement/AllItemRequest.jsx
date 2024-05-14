@@ -11,7 +11,7 @@ const AllItemRequest = () => {
     isLoading,
   } = useGetAllRequestItemQuery(undefined, {
     refetchOnMountOrArgChange: true,
-  }) || {};
+  });
   let content = null;
 
   if (isLoading) {
@@ -24,7 +24,7 @@ const AllItemRequest = () => {
     content = (
       <tr>
         <td className="m-2 text-center">
-          <Error message={error?.data} />
+          <Error message="Error loading items request!" />
         </td>
       </tr>
     );

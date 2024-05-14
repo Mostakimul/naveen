@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useUpdateRequestItemMutation } from '../../redux/features/admin/itemManagement.api';
+import { modifyPayload } from '../../utils/modifyPayload';
 
 const EditRequestItemForm = ({ item }) => {
   const {
@@ -27,7 +28,7 @@ const EditRequestItemForm = ({ item }) => {
   } = useForm({
     defaultValues: {
       itemsCost: itemsCost || '',
-      invoiceImage: invoiceImage || '',
+      invoiceImage: invoiceImage || null,
       remarks: remarks || '',
       requestStatus: requestStatus || '',
     },
@@ -35,20 +36,21 @@ const EditRequestItemForm = ({ item }) => {
 
   const onSubmit = async (data) => {
     const toastId = toast.loading('Loading...');
-
     try {
-      const itemInfo = {
+      const updatedInfo = {
+        ...data,
         itemsCost: Number(data.itemsCost),
-        invoiceImage: data.invoiceImage,
-        remarks: data.remarks,
-        requestStatus: data.requestStatus,
+        invoiceImage: data.invoiceImage[0],
       };
+      const modifyData = modifyPayload(updatedInfo);
 
-      console.log(itemInfo, requestId);
+      for (var pair of modifyData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
 
       const result = await updateRequestItem({
         reqId: requestId,
-        data: itemInfo,
+        data: modifyData,
       });
 
       reset();
@@ -60,6 +62,7 @@ const EditRequestItemForm = ({ item }) => {
         navigate('/items/all-requests');
       }
     } catch (err) {
+      console.log(err);
       toast.error('Something went wrong', { id: toastId, duration: 2000 });
     }
   };
