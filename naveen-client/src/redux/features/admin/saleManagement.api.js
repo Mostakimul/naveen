@@ -5,10 +5,10 @@ const saleManagementApi = baseApi.injectEndpoints({
     getAllSales: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
-        if (args) {
-          args.forEach((item) => {
-            params.append(item.name, item.value);
-          });
+        for (const key in args) {
+          if (args.hasOwnProperty(key)) {
+            params.append(key, args[key]);
+          }
         }
 
         return {

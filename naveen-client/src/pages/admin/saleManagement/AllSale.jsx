@@ -1,16 +1,25 @@
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import React from 'react';
+import React, { useState } from 'react';
+import Error from '../../../components/Error';
 import SalesList from '../../../partials/admin/SalesList';
 import { useGetAllSalesQuery } from '../../../redux/features/admin/saleManagement.api';
 
 const AllSale = () => {
+  const [saleFilter, setSaleFilter] = useState('monthly');
+
   const {
     data: sales,
     isError,
     error,
     isLoading,
-  } = useGetAllSalesQuery() || {};
+  } = useGetAllSalesQuery({ timeFrame: saleFilter });
+
+  console.log(sales);
+
+  const handleChange = (e) => {
+    setSaleFilter(e.target.value);
+  };
 
   let content = null;
 
@@ -24,7 +33,7 @@ const AllSale = () => {
     content = (
       <tr>
         <td className="m-2 text-center">
-          <Error message={error?.data} />
+          <Error message="Error loading sales!" />
         </td>
       </tr>
     );
@@ -54,9 +63,26 @@ const AllSale = () => {
           All Sales
         </h2>
 
-        <button onClick={exportPdf} class="btn btn-sm btn-primary">
-          Export
-        </button>
+        <div className="flex justify-between gap-5 items-center">
+          <label className="block mt-4 text-sm">
+            <span className="text-gray-700 dark:text-gray-400">
+              Filte Sales
+            </span>
+            <select
+              onChange={handleChange}
+              className="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-select"
+              name="timeFrame"
+            >
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+          </label>
+          <button onClick={exportPdf} className="btn btn-sm btn-primary">
+            Export
+          </button>
+        </div>
       </header>
 
       <div className="relative p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
@@ -71,6 +97,7 @@ const AllSale = () => {
                 <th className="border border-slate-600">Manager</th>
               </tr>
             </thead>
+
             <tbody>{content}</tbody>
           </table>
         </div>
