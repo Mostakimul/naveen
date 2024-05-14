@@ -9,6 +9,11 @@ const metaDataApi = baseApi.injectEndpoints({
           method: 'GET',
         };
       },
+      transformResponse: (response) => {
+        return {
+          meta: response.data,
+        };
+      },
       providesTags: ['meta'],
     }),
   }),

@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 
+import { useSelector } from 'react-redux';
 import StatCard from '../components/StatCard';
 import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
 import { useGetMetaDataQuery } from '../redux/features/admin/metaData.api';
+import { selectCurrentUser } from '../redux/features/auth/authSlice';
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { data: meta, isError, error, isLoading } = useGetMetaDataQuery();
-  const { userCount, storeCount, itemRequestCount } = meta?.data;
+  const user = useSelector(selectCurrentUser);
+  const { data, isError, error, isLoading } = useGetMetaDataQuery();
 
   return (
     <div>
       <WelcomeBanner />
-      {meta?.data && !isError && (
+      {user?.role == 'ADMIN' && data?.meta && !isLoading && (
         <div>
           <div className="flex justify-around gap-10">
-            <StatCard title={'Total Users'} value={userCount} />
-            <StatCard title={'Total Stores'} value={storeCount} />
-            <StatCard title={'Items Requested'} value={itemRequestCount} />
+            <StatCard title={'Total Users'} value={data?.meta?.userCount} />
+            <StatCard title={'Total Stores'} value={data?.meta?.storeCount} />
+            <StatCard
+              title={'Items Requested'}
+              value={data?.meta?.itemRequestCount}
+            />
           </div>
         </div>
       )}
