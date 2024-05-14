@@ -40,7 +40,7 @@ const userManagementApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['user'],
+      invalidatesTags: ['user', 'meta'],
     }),
     softDeleteUser: builder.mutation({
       query: (id) => ({

@@ -31,7 +31,7 @@ const storeManagementApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['store'],
+      invalidatesTags: ['store', 'meta'],
     }),
     deleteStore: builder.mutation({
       query: (id) => ({

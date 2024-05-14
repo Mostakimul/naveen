@@ -8,7 +8,7 @@ const requestItemApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['item'],
+      invalidatesTags: ['item', 'meta'],
     }),
 
     getMyRequestItem: builder.query({
