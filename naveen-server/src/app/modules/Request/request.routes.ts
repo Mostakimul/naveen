@@ -1,5 +1,6 @@
 import { UserRole } from '@prisma/client';
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
+import { fileUploader } from '../../../helpers/fileUploader';
 import auth from '../../middlewares/auth';
 import validateRequest from '../../middlewares/validateRequest';
 import { requestController } from './request.controller';
@@ -22,8 +23,13 @@ router.post(
 router.patch(
   '/:reqId',
   auth(UserRole.ADMIN, UserRole.WAREHOUSE_MANAGER),
-  validateRequest(requestValidation.updateRequestStatusSchema),
-  requestController.updateItemRequest,
+  fileUploader.upload.single('file'),
+  (req: Request, res: Response, next: NextFunction) => {
+    req.body = requestValidation.updateRequestStatusSchema.parse(
+      JSON.parse(req.body.data),
+    );
+    return requestController.updateItemRequest(req, res, next);
+  },
 );
 
 router.get(

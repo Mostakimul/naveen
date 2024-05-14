@@ -19,10 +19,7 @@ const createItemRequest: RequestHandler = catchAsync(async (req, res) => {
 //** create item request controller */
 const updateItemRequest: RequestHandler = catchAsync(async (req, res) => {
   const { reqId } = req.params;
-  const result = await requestService.updateItemsRequestService(
-    reqId,
-    req.body,
-  );
+  const result = await requestService.updateItemsRequestService(reqId, req);
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,

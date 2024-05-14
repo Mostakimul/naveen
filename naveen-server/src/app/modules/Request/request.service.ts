@@ -1,6 +1,8 @@
 import { ItemRequest, RequestStatus } from '@prisma/client';
 import { JwtPayload } from 'jsonwebtoken';
+import { fileUploader } from '../../../helpers/fileUploader';
 import prisma from '../../../shared/prisma';
+import { IFile } from '../../interfaces/file';
 
 //** create items request service */
 const createRequestService = async (user: JwtPayload, payload: ItemRequest) => {
@@ -34,6 +36,12 @@ const createRequestService = async (user: JwtPayload, payload: ItemRequest) => {
 
 //** change items request status service */
 const updateItemsRequestService = async (requestId: string, payload: any) => {
+  const file = payload.file as IFile;
+
+  if (file) {
+    const uploadedImage = await fileUploader.uploadToCloudinary(file);
+    payload.body.invoiceImage = uploadedImage?.secure_url;
+  }
   await prisma.itemRequest.findUniqueOrThrow({
     where: {
       requestId,
@@ -44,7 +52,7 @@ const updateItemsRequestService = async (requestId: string, payload: any) => {
     where: {
       requestId,
     },
-    data: payload,
+    data: payload.body,
   });
 
   return result;
