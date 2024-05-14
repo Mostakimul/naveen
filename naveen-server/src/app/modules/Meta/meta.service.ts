@@ -22,14 +22,14 @@ const getAdminMetaData = async () => {
   const itemRequestCount = await prisma.itemRequest.count();
   const salesCount = await prisma.sales.count();
 
-  const barChartData = await getSalesCountByMonthData();
+  const monthlySalesData = await getSalesCountByMonthData();
 
   return {
     userCount,
     storeCount,
     itemRequestCount,
     salesCount,
-    barChartData,
+    monthlySalesData,
   };
 };
 
